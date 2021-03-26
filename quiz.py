@@ -15,7 +15,8 @@ import operator
 
 level = 1
 score = 1
-rounds = 5
+rounds = 3
+limit = 30
 
 def sign_up():
     username = input("Enter a username: ")
@@ -55,32 +56,33 @@ def log_in():
                 break
 
 
-def start_game():
+def start_game(limit):
     start = "ll"
     start = input("Please press any key to start the game")
     # print(start)
     if start != "ll" and level == 1:
-        level_one()
+        level_one(limit)
 
 
 overall = 0
 
 
-def level_one():
+def level_one(limit):
     global score
     global overall
     global rounds
 
+
     while rounds > 0:
 
         if score <= 0:
-            return print("Haha, You lost")
+            return print("You lost!")
         answer = 0
     
         random_operator = random.choice(["+", "-"])
         if random_operator == "+":
-            first_number = random.randint(1, 50)
-            second_number = random.randint(1, 50)
+            first_number = random.randint(1, limit/2)
+            second_number = random.randint(1, limit/2)
             response = input(f"{first_number} + {second_number}: ")
             answer = first_number + second_number
             if int(response) == answer:
@@ -88,15 +90,15 @@ def level_one():
                 overall += 10
                 rounds -= 1
                 print(score)
-                level_one()
+                level_one(limit)
             else:
                 score -= 10
                 rounds -= 1
                 print(score)
-                level_one()
+                level_one(limit)
 
         else:
-            first_number = random.randint(1, 100)
+            first_number = random.randint(1, limit)
             second_number = random.randint(1, first_number)
             response = input(f"{first_number} - {second_number}: ")
             answer = first_number - second_number
@@ -104,12 +106,12 @@ def level_one():
                 score += 10
                 rounds -= 1
                 print(score)
-                level_one()
+                level_one(limit)
             else:
                 score -= 10
                 rounds -= 1
                 print(score)
-                level_one()
+                level_one(limit)
         # print(first_number, second_number, answer)
 
 # def main():
@@ -118,7 +120,7 @@ def level_one():
 #     main()
 # sign_up()
 # log_in()
-start_game()
+start_game(limit)
 # I want to implement
 
 # old project 22
