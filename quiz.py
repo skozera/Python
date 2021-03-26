@@ -25,6 +25,9 @@ def level_one(limit):
     global overall
     global rounds
     global prize
+    
+    def print_time(end, start):
+        return int(end-start)
 
     if score <= 0:
         return print("You lost!")
@@ -44,9 +47,9 @@ def level_one(limit):
             answer = first_number + second_number
             if int(response) == answer:
                 score += prize
-                overall += prize
+                #overall += prize
                 rounds -= 1
-                print(score, end-start)
+                print(score, print_time(end,start))
                 level_one(limit)
             else:
                 score -= prize
@@ -57,13 +60,13 @@ def level_one(limit):
         else:
             first_number = random.randint(1, limit)
             second_number = random.randint(1, first_number)
-            response = input(f"{first_number} - {second_number}: ")
+            response = input(f"{first_number} - {second_number}: ") 
             end = time.time()
             answer = first_number - second_number
             if int(response) == answer:
                 score += prize
                 rounds -= 1
-                print(score, end-start)
+                print(score, print_time(end,start))
                 level_one(limit)
             else:
                 score -= prize
