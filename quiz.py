@@ -15,7 +15,7 @@ import operator
 
 level = 1
 score = 1
-
+rounds = 5
 
 def sign_up():
     username = input("Enter a username: ")
@@ -69,39 +69,48 @@ overall = 0
 def level_one():
     global score
     global overall
-    if score <= 0:
+    global rounds
 
-        return print("Haha, You lost")
-    answer = 0
+    while rounds > 0:
 
-    first_number = random.randint(1, 30)
-    second_number = random.randint(1, 30)
-    random_operator = random.choice(["+", "-"])
-    if random_operator == "+":
-        response = input(f"{first_number} + {second_number}: ")
-        answer = first_number + second_number
-        if int(response) == answer:
-            score += 10
-            overall += 10
-            print("ee ",score)
-            level_one()
+        if score <= 0:
+            return print("Haha, You lost")
+        answer = 0
+    
+        random_operator = random.choice(["+", "-"])
+        if random_operator == "+":
+            first_number = random.randint(1, 50)
+            second_number = random.randint(1, 50)
+            response = input(f"{first_number} + {second_number}: ")
+            answer = first_number + second_number
+            if int(response) == answer:
+                score += 10
+                overall += 10
+                rounds -= 1
+                print(score)
+                level_one()
+            else:
+                score -= 10
+                rounds -= 1
+                print(score)
+                level_one()
+
         else:
-            score -= 10
-            print(score)
-            level_one()
-
-    else:
-        response = input(f"{first_number} - {second_number}: ")
-        answer = first_number - second_number
-        if int(response) == answer:
-            score += 10
-            print(score)
-            level_one()
-        else:
-            score -= 10
-            print(score)
-            level_one()
-    # print(first_number, second_number, answer)
+            first_number = random.randint(1, 100)
+            second_number = random.randint(1, first_number)
+            response = input(f"{first_number} - {second_number}: ")
+            answer = first_number - second_number
+            if int(response) == answer:
+                score += 10
+                rounds -= 1
+                print(score)
+                level_one()
+            else:
+                score -= 10
+                rounds -= 1
+                print(score)
+                level_one()
+        # print(first_number, second_number, answer)
 
 # def main():
 
