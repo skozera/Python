@@ -17,6 +17,7 @@ level = 1
 score = 1
 rounds = 3
 limit = 30
+prize = 10
 
 def sign_up():
     username = input("Enter a username: ")
@@ -66,17 +67,18 @@ def start_game(limit):
 
 overall = 0
 
-
 def level_one(limit):
     global score
     global overall
     global rounds
+    global prize
 
+    if score <= 0:
+        return print("You lost!")
 
-    while rounds > 0:
+    while ((rounds > 0) & (score > 0)):
 
-        if score <= 0:
-            return print("You lost!")
+        
         answer = 0
     
         random_operator = random.choice(["+", "-"])
@@ -86,13 +88,13 @@ def level_one(limit):
             response = input(f"{first_number} + {second_number}: ")
             answer = first_number + second_number
             if int(response) == answer:
-                score += 10
-                overall += 10
+                score += prize
+                overall += prize
                 rounds -= 1
                 print(score)
                 level_one(limit)
             else:
-                score -= 10
+                score -= prize
                 rounds -= 1
                 print(score)
                 level_one(limit)
@@ -103,12 +105,12 @@ def level_one(limit):
             response = input(f"{first_number} - {second_number}: ")
             answer = first_number - second_number
             if int(response) == answer:
-                score += 10
+                score += prize
                 rounds -= 1
                 print(score)
                 level_one(limit)
             else:
-                score -= 10
+                score -= prize
                 rounds -= 1
                 print(score)
                 level_one(limit)
