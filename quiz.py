@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Mar 24 18:31:00 2021
-
-@author: Sylwester
 """
-
-
 
 import random
 import time
@@ -14,10 +10,10 @@ import hashlib
 import operator
 
 level = 1
-score = 1
-rounds = 3
-limit = 30
-prize = 10
+score = 1 # inittial points
+rounds = 3 # how many rounds do you want to play
+limit = 30 # max result of addition or subtraction
+prize = 10 # points for every corect oraz uncorrect (with minus) answear
 
 def sign_up():
     username = input("Enter a username: ")
@@ -34,7 +30,6 @@ def sign_up():
         writable_password.write(hashed_password+"\n")
 
     log_in()
-
 
 def log_in():
     print("Please, enter your usarname and password to sign in")
@@ -56,14 +51,11 @@ def log_in():
                 start_game()
                 break
 
-
 def start_game(limit):
     start = "ll"
     start = input("Please press any key to start the game")
-    # print(start)
     if start != "ll" and level == 1:
         level_one(limit)
-
 
 overall = 0
 
@@ -77,7 +69,8 @@ def level_one(limit):
         return print("You lost!")
 
     while ((rounds > 0) & (score > 0)):
-
+        
+        start = time.time()
         
         answer = 0
     
@@ -86,12 +79,13 @@ def level_one(limit):
             first_number = random.randint(1, limit/2)
             second_number = random.randint(1, limit/2)
             response = input(f"{first_number} + {second_number}: ")
+            end = time.time()
             answer = first_number + second_number
             if int(response) == answer:
                 score += prize
                 overall += prize
                 rounds -= 1
-                print(score)
+                print(score, end-start)
                 level_one(limit)
             else:
                 score -= prize
@@ -103,11 +97,12 @@ def level_one(limit):
             first_number = random.randint(1, limit)
             second_number = random.randint(1, first_number)
             response = input(f"{first_number} - {second_number}: ")
+            end = time.time()
             answer = first_number - second_number
             if int(response) == answer:
                 score += prize
                 rounds -= 1
-                print(score)
+                print(score, end-start)
                 level_one(limit)
             else:
                 score -= prize
@@ -123,7 +118,3 @@ def level_one(limit):
 # sign_up()
 # log_in()
 start_game(limit)
-# I want to implement
-
-# old project 223
-
