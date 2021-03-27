@@ -11,6 +11,7 @@ score = 1 # inittial points
 rounds = 3 # how many rounds do you want to play
 limit = 30 # max result of addition or subtraction
 prize = 10 # points for every corect oraz uncorrect (with minus) answear
+timetotal = 0
 
 def start_game(limit):
     start = "ll"
@@ -23,54 +24,53 @@ def level_one(limit):
     global score
     global rounds
     global prize
+    global timetotal
     
     def print_time(end, start):
-        return int(end-start)
+        return str(format(end-start, '.1f')) + " sek."
+    
+    def get_answear(response, answear, start, end):
+            
+            global score
+            global rounds
+            global prize
+            global timetotal
+            global limit
+            
+            if int(response) == answear:
+                score += prize
+                rounds -= 1
+                print(score-1, 'pkt. /', str(format(end-start, '.1f')) + " sek.")
+                level_one(limit)
+            else:
+                score -= prize
+                rounds -= 1
+                print(score-1, 'pkt. /', str(format(end-start, '.1f')) + " sek.")
+                level_one(limit)
 
     if score <= 0:
         return print("You lost!")
 
     while ((rounds > 0) & (score > 0)):
         
-        start = time.time()
-        
-        answer = 0
-    
         random_operator = random.choice(["+", "-"])
+        start = time.time()
+
         if random_operator == "+":
             first_number = random.randint(1, limit/2)
             second_number = random.randint(1, limit/2)
             response = input(f"{first_number} + {second_number}: ")
             end = time.time()
-            answer = first_number + second_number
-            if int(response) == answer:
-                
-                score += prize
-                rounds -= 1
-                print(score, print_time(end,start))
-                level_one(limit)
-            else:
-                score -= prize
-                rounds -= 1
-                print(score)
-                level_one(limit)
+            answear = first_number + second_number
+            get_answear(response, answear, start, end)
 
         else:
             first_number = random.randint(1, limit)
             second_number = random.randint(1, first_number)
             response = input(f"{first_number} - {second_number}: ") 
             end = time.time()
-            answer = first_number - second_number
-            if int(response) == answer:
-                score += prize
-                rounds -= 1
-                print(score, print_time(end,start))
-                level_one(limit)
-            else:
-                score -= prize
-                rounds -= 1
-                print(score)
-                level_one(limit)
+            answear = first_number - second_number
+            get_answear(response, answear, start, end)
 
 # def main():
 
