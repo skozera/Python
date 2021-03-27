@@ -18,11 +18,9 @@ def start_game(limit):
     if start != "ll" and level == 1:
         level_one(limit)
 
-overall = 0
 
 def level_one(limit):
     global score
-    global overall
     global rounds
     global prize
     
@@ -48,7 +46,6 @@ def level_one(limit):
             if int(response) == answer:
                 
                 score += prize
-                #overall += prize
                 rounds -= 1
                 print(score, print_time(end,start))
                 level_one(limit)
