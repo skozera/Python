@@ -46,6 +46,7 @@ def level_one(limit):
             end = time.time()
             answer = first_number + second_number
             if int(response) == answer:
+                
                 score += prize
                 #overall += prize
                 rounds -= 1
@@ -73,7 +74,6 @@ def level_one(limit):
                 rounds -= 1
                 print(score)
                 level_one(limit)
-        # print(first_number, second_number, answer)
 
 # def main():
 
