@@ -14,7 +14,7 @@ prize = 10 # points for every corect oraz uncorrect (with minus) answear
 timetotal = 0
 
 def start_game(limit, rounds, prize):
-    start = input("Naciśnij ENTER, aby rozpocząć zadanie...")
+    start = input(f"Wykonaj {rounds} zadań z dodawania i odejmowania do {limit}.\r\nOtrzymasz {prize} punktów za każdą prawidłową odpowiedź.\r\n\r\nNaciśnij ENTER, aby rozpocząć zadania...")
     quiz = level_one(limit)
     print("\r\n-- PODSUMOWANIE --")
     print("Punktów:", str(quiz[0])+'/'+str(rounds*prize), "\r\nCzas wykonania:", str(format(quiz[1], '.1f')) + " sek.")
@@ -44,9 +44,6 @@ def level_one(limit):
                 print('0 pkt. /', str(format(end-start, '.1f')) + " sek.")
                 level_one(limit)
 
-    #if score <= 0:
-    #    return print("You lost!")
-
     while rounds > 0:
         
         random_operator = random.choice(["+", "-"])
@@ -55,7 +52,7 @@ def level_one(limit):
         if random_operator == "+":
             first_number = random.randint(1, limit/2)
             second_number = random.randint(1, limit/2)
-            response = input(f"{first_number} + {second_number}: ")
+            response = input(f"{rounds}) {first_number} + {second_number}: ")
             end = time.time()
             answear = first_number + second_number
             get_answear(response, answear, start, end)
@@ -63,7 +60,7 @@ def level_one(limit):
         else:
             first_number = random.randint(1, limit)
             second_number = random.randint(1, first_number)
-            response = input(f"{first_number} - {second_number}: ") 
+            response = input(f"{rounds}) {first_number} - {second_number}: ") 
             end = time.time()
             answear = first_number - second_number
             get_answear(response, answear, start, end)
