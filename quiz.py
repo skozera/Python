@@ -8,50 +8,46 @@ import time
 
 level = 1
 score = 1 # inittial points
-rounds = 3 # how many rounds do you want to play
+rounds = 10 # how many rounds do you want to play
 limit = 30 # max result of addition or subtraction
 prize = 10 # points for every corect oraz uncorrect (with minus) answear
 timetotal = 0
 
-def start_game(limit):
-    start = "ll"
-    start = input("Please press any key to start the game")
-    if start != "ll" and level == 1:
-        level_one(limit)
-
+def start_game(limit, rounds, prize):
+    start = input("Naciśnij ENTER, aby rozpocząć zadanie...")
+    quiz = level_one(limit)
+    print("\r\n-- PODSUMOWANIE --")
+    print("Punktów:", str(quiz[0])+'/'+str(rounds*prize), "\r\nCzas wykonania:", str(format(quiz[1], '.1f')) + " sek.")
 
 def level_one(limit):
-    global score
-    global rounds
-    global prize
-    global timetotal
     
     def print_time(end, start):
         return str(format(end-start, '.1f')) + " sek."
     
     def get_answear(response, answear, start, end):
-            
+                
             global score
             global rounds
             global prize
             global timetotal
             global limit
             
+            rounds -= 1
+            
             if int(response) == answear:
                 score += prize
-                rounds -= 1
-                print(score-1, 'pkt. /', str(format(end-start, '.1f')) + " sek.")
+                timetotal += end-start
+                print(prize, 'pkt. /', str(format(end-start, '.1f')) + " sek.")
                 level_one(limit)
             else:
-                score -= prize
-                rounds -= 1
-                print(score-1, 'pkt. /', str(format(end-start, '.1f')) + " sek.")
+                timetotal += end-start
+                print('0 pkt. /', str(format(end-start, '.1f')) + " sek.")
                 level_one(limit)
 
-    if score <= 0:
-        return print("You lost!")
+    #if score <= 0:
+    #    return print("You lost!")
 
-    while ((rounds > 0) & (score > 0)):
+    while rounds > 0:
         
         random_operator = random.choice(["+", "-"])
         start = time.time()
@@ -71,10 +67,14 @@ def level_one(limit):
             end = time.time()
             answear = first_number - second_number
             get_answear(response, answear, start, end)
+    
+    #summary
+    return [score-1, timetotal]
+    
 
 # def main():
 
 # if __name__ = "__main__":
 #     main()
 
-start_game(limit)
+start_game(limit, rounds, prize)
