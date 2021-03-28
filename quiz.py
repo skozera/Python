@@ -9,7 +9,7 @@ import time
 level = 1
 score = 1 # inittial points
 rounds = 10 # how many rounds do you want to play
-limit = 30 # max result of addition or subtraction
+limit = 100 # max result of addition or subtraction
 prize = 10 # points for every corect oraz uncorrect (with minus) answear
 timetotal = 0
 
@@ -75,4 +75,3 @@ def level_one(limit):
 #     main()
 
 start_game(limit, rounds, prize)
-#pull request test
